@@ -34,17 +34,17 @@ module aux::fake_coin {
 
     #[test_only]
     public fun init_module_for_testing(sender: &signer) {
-        deployer::deployer::create_resource_account(sender, b"amm");
-        authority::init_module_for_test(&deployer::deployer::get_signer_for_address(sender, @aux));
+        deployer_aux::deployer::create_resource_account(sender, b"amm");
+        authority::init_module_for_test(&deployer_aux::deployer::get_signer_for_address(sender, @aux));
         initialize_for_test(&authority::get_signer(sender));
     }
 
     // Initializes a new fake coin. Should only be called by this module.
     fun initialize<T>(
-        sender: &signer, 
-        decimals: u8, 
+        sender: &signer,
+        decimals: u8,
         name: vector<u8>,
-        symbol: vector<u8> 
+        symbol: vector<u8>
     ) {
         if (!coin::is_coin_initialized<FakeCoin<T>>()) {
             managed_coin::initialize<FakeCoin<T>>(
@@ -64,7 +64,7 @@ module aux::fake_coin {
     // the user to sign for their own mint to prevent interfering with other
     // users, but this is not strictly required for the contract to function.
     public entry fun mint<T>(
-        sender: &signer, 
+        sender: &signer,
         amount: u64
     ) {
         let recipient = signer::address_of(sender);

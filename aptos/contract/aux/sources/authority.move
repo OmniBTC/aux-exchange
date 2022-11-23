@@ -6,7 +6,7 @@ module aux::authority {
     use std::signer;
     use aptos_framework::account::{Self, SignerCapability};
 
-    use deployer::deployer;
+    use deployer_aux::deployer;
 
     friend aux::amm;
     friend aux::aux_coin;
